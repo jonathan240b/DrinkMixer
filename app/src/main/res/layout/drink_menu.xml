@@ -1,0 +1,219 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stretchColumns="1">
+
+        <!--Arnold Palmer-->
+        <TableRow>
+            <ImageView
+                android:id="@+id/drink1_img"
+                android:layout_width="100dp"
+                android:layout_height="200dp"
+                android:src="@drawable/tea"
+                android:layout_column="0"
+                android:padding="3dip" />
+
+            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:stretchColumns="1" >
+                <TableRow>
+                    <TextView
+                        android:text="@string/drink1"
+                        android:padding="25dip"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textStyle="bold"/>
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:text="@string/drink1_desc"
+                        android:padding="3dip"
+                        android:layout_width="265dp"/>
+
+                </TableRow>
+                <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:stretchColumns="1" >
+                    <TableRow>
+                        <Button
+                            android:id="@+id/drink1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/button_add_to_cart"
+                            android:layout_gravity="center"
+                            android:onClick="addToCart"
+                            android:singleLine="true"/>
+                    </TableRow>
+                </TableLayout>
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                </TableRow>
+            </TableLayout>
+        </TableRow>
+
+        <!--Whiskey-->
+        <TableRow>
+            <ImageView
+                android:id="@+id/drink2_img"
+                android:layout_width="100dp"
+                android:layout_height="200dp"
+                android:src="@drawable/whiskey"
+                android:layout_column="0"
+                android:padding="3dip" />
+
+            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:stretchColumns="1" >
+                <TableRow>
+                    <TextView
+                        android:text="@string/drink2"
+                        android:padding="25dip"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textStyle="bold"/>
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:text="@string/drink2_desc"
+                        android:padding="3dip"
+                        android:layout_width="265dp"/>
+
+                </TableRow>
+                <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:stretchColumns="1" >
+                    <TableRow>
+                        <Button
+                            android:id="@+id/drink2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/button_add_to_cart"
+                            android:layout_gravity="center"
+                            android:onClick="addToCart"
+                            android:singleLine="true"/>
+                    </TableRow>
+                </TableLayout>
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                </TableRow>
+            </TableLayout>
+        </TableRow>
+
+        <!--Tequila-->
+        <TableRow>
+            <ImageView
+                android:id="@+id/drink3_img"
+                android:layout_width="100dp"
+                android:layout_height="200dp"
+                android:src="@drawable/tequila"
+                android:layout_column="0"
+                android:padding="3dip" />
+
+            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:stretchColumns="1" >
+                <TableRow>
+                    <TextView
+                        android:text="@string/drink3"
+                        android:padding="25dip"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textStyle="bold"/>
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:text="@string/drink3_desc"
+                        android:padding="3dip"
+                        android:layout_width="265dp"/>
+
+                </TableRow>
+                <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:stretchColumns="1" >
+                    <TableRow>
+                        <Button
+                            android:id="@+id/drink3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/button_add_to_cart"
+                            android:layout_gravity="center"
+                            android:onClick="addToCart"
+                            android:singleLine="true"/>
+                    </TableRow>
+                </TableLayout>
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                </TableRow>
+            </TableLayout>
+        </TableRow>
+
+        <!--Rum-->
+        <TableRow>
+            <ImageView
+                android:id="@+id/drink4_img"
+                android:layout_width="100dp"
+                android:layout_height="200dp"
+                android:src="@drawable/rum"
+                android:layout_column="0"
+                android:padding="3dip" />
+
+            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:stretchColumns="1" >
+                <TableRow>
+                    <TextView
+                        android:text="@string/drink4"
+                        android:padding="25dip"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textStyle="bold"/>
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:text="@string/drink4_desc"
+                        android:padding="3dip"
+                        android:layout_width="265dp"/>
+
+                </TableRow>
+                <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:stretchColumns="1" >
+                    <TableRow>
+                        <Button
+                            android:id="@+id/drink4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/button_add_to_cart"
+                            android:layout_gravity="center"
+                            android:onClick="addToCart"
+                            android:singleLine="true" />
+                    </TableRow>
+                </TableLayout>
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                </TableRow>
+            </TableLayout>
+        </TableRow>
+
+    </TableLayout>
+</ScrollView>

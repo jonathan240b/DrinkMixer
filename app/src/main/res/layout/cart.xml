@@ -1,0 +1,136 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_weight="0">
+
+            <!--Header Image-->
+            <ImageView
+                android:id="@+id/cart_banner"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:src="@drawable/cart" />
+        </LinearLayout>
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:stretchColumns="*">
+
+            <!--Headers-->
+            <TableRow
+                android:id="@+id/cart_headers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="3dip" >
+
+                <TextView
+                    android:text="@string/cart_header_drink"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:gravity="center"
+                    android:id="@+id/cart_header_drink"
+                    android:layout_width="150dp"/>
+
+                <TextView
+                    android:text="@string/cart_header_quantity"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:gravity="center"
+                    android:id="@+id/cart_header_quantity"/>
+
+                <TextView
+                    android:text="@string/cart_header_price"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:gravity="center"
+                    android:id="@+id/cart_header_price"/>
+            </TableRow>
+
+            <!--Line Separator-->
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:background="@android:color/darker_gray" />
+
+            <!--Item List-->
+            <TableLayout
+                android:id="@+id/cart_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*"
+                android:paddingTop="8dp" >
+
+                <!--Set Row Spacing-->
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <Space
+                        android:layout_width="@dimen/cart_name"
+                        android:layout_height="0dp"/>
+                    <Space
+                        android:layout_width="@dimen/cart_quantity"
+                        android:layout_height="0dp"/>
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"/>
+                </TableRow>
+
+                <!--1 line test-->
+                <!--<TableRow-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content">-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/drinkName"-->
+                        <!--android:text="Drink 1"-->
+                        <!--android:gravity="center"/>-->
+
+                    <!--<TextView-->
+                        <!--android:text="2"-->
+                        <!--android:gravity="center"/>-->
+
+                    <!--<TextView-->
+                        <!--android:text="$6.99"-->
+                        <!--android:gravity="center"/>-->
+                <!--</TableRow>-->
+            </TableLayout>
+
+            <!--Total Price-->
+            <TableRow
+                android:id="@+id/total_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="40dip"
+                android:paddingBottom="40dip">
+
+
+                <TextView
+                    android:id="@+id/cart_header_total"
+                    android:text="@string/cart_header_total"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:gravity="center"
+                    android:layout_column="1" />
+
+                <TextView
+                    android:id="@+id/cart_price"
+                    android:text="$6.99"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:gravity="center"
+                    android:layout_column="2" />
+            </TableRow>
+
+            <!--NFC Button-->
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cart_button"
+                android:onClick="sendToNfc"
+                android:singleLine="true" />
+
+        </TableLayout>
+    </LinearLayout>
+</ScrollView>

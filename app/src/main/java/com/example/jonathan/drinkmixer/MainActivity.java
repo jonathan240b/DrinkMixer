@@ -1,27 +1,35 @@
 package com.example.jonathan.drinkmixer;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ScrollView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
+    private static String[] name;
+    private static int[] order;
+    private static double[] price;
+
+    public final static String EXTRA_MESSAGE = "com.TrollTek.DrinkMixer.MESSAGE";
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -36,6 +44,12 @@ public class MainActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        name = new String[4];
+        order = new int[4];
+        price = new double[4];
+        setPrice();
+        setName();
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -59,12 +73,12 @@ public class MainActivity extends ActionBarActivity
                 break;
             case 1:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, window_2.newInstance(position + 1))
+                        .replace(R.id.container, MenuFragment.newInstance(position + 1))
                         .commit();
                 break;
             case 2:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                        .replace(R.id.container, cartFragment.newInstance(position + 1))
                         .commit();
                 break;
         }
@@ -161,7 +175,7 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
-    public static class window_2 extends Fragment {
+    public static class cartFragment extends Fragment {
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -172,21 +186,106 @@ public class MainActivity extends ActionBarActivity
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static window_2 newInstance(int sectionNumber) {
-            window_2 fragment = new window_2();
+        public static cartFragment newInstance(int sectionNumber) {
+            cartFragment fragment = new cartFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
             return fragment;
         }
 
-        public window_2() {
+        public cartFragment() {
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.window_2, container, false);
+            View rootView = inflater.inflate(R.layout.cart, container, false);
+
+            for (int i = 0; i < order.length; i++)
+                if (order[i] != 0)
+                    addItemsToCart(rootView, i);
+
+            updatePrice(rootView);
+            return rootView;
+        }
+
+        @Override
+        public void onAttach(Activity activity) {
+            super.onAttach(activity);
+
+
+            ((MainActivity) activity).onSectionAttached(
+                    getArguments().getInt(ARG_SECTION_NUMBER));
+        }
+
+        /** Adds selected items to cart */
+        public void addItemsToCart(View rootView, int id) {
+            TableLayout table=(TableLayout)rootView.findViewById(R.id.cart_list);
+            TableRow row = new TableRow(rootView.getContext());
+            TextView textView_n = new TextView(rootView.getContext());
+            TextView textView_q = new TextView(rootView.getContext());
+            TextView textView_p = new TextView(rootView.getContext());
+
+            row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
+                    TableRow.LayoutParams.WRAP_CONTENT));
+            row.setId(id);
+
+            //Name
+            textView_n.setText(name[id]);
+            textView_n.setGravity(1);
+            row.addView(textView_n);
+
+            //Quantity
+            textView_q.setText(Integer.toString(order[id]));
+            textView_q.setGravity(1);
+            row.addView(textView_q);
+
+            //Price
+            textView_p.setText(String.format("$ %.2f", price[id]*order[id]));
+            textView_p.setGravity(1);
+            row.addView(textView_p);
+
+            table.addView(row);
+        }
+
+        /** Update Total Price */
+        public void updatePrice(View rootView) {
+            double total = 0;
+            for (int i = 0; i < order.length; i++)
+                total += order[i] * price[i];
+
+            TextView textView = (TextView) rootView.findViewById(R.id.cart_price);
+                textView.setText(String.format("$ %.2f", total));
+        }
+    }
+
+    public static class MenuFragment extends Fragment {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private static final String ARG_SECTION_NUMBER = "section_number";
+
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        public static MenuFragment newInstance(int sectionNumber) {
+            MenuFragment fragment = new MenuFragment();
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        public MenuFragment() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.drink_menu, container, false);
             return rootView;
         }
 
@@ -196,5 +295,65 @@ public class MainActivity extends ActionBarActivity
             ((MainActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
+    }
+
+    /** starts transmitting via nfc */
+    public void testNfc(View view) {
+
+        Intent intent = new Intent(this, BeamData.class);
+        EditText editText = (EditText) findViewById(R.id.edit_message);
+        String message = editText.getText().toString();
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
+
+    /** Send Drink Order to NFC */
+    public void sendToNfc(View view) {
+
+        Intent intent = new Intent(this, BeamData.class);
+        String message = "Drink Order";
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
+
+    /** Respond to add to cart */
+    public void addToCart(View view) {
+
+        switch (view.getId()) {
+            case R.id.drink1:
+                this.order[0]++;
+                Toast.makeText(this, this.order[0] + " Arnold Palmer in cart", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.drink2:
+                this.order[1]++;
+                Toast.makeText(this, this.order[1] + " Whiskey in cart", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.drink3:
+                this.order[2]++;
+                Toast.makeText(this, this.order[2] + " Tequila in cart", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.drink4:
+                this.order[3]++;
+                Toast.makeText(this, this.order[3] + " Rum added in cart", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                Toast.makeText(this, "Undefined Drink", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /** Set price, Hardcoded for now*/
+    public void setPrice() {
+        this.price[0] = 2.99;
+        this.price[1] = 3.99;
+        this.price[2] = 4.99;
+        this.price[3] = 5.99;
+    }
+
+    /** Set name, Hardcoded for now*/
+    public void setName() {
+        this.name[0] = "Arnold Palmer";
+        this.name[1] = "Whiskey";
+        this.name[2] = "Tequila";
+        this.name[3] = "Rum";
     }
 }
