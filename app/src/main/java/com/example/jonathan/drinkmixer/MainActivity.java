@@ -309,38 +309,83 @@ public class MainActivity extends ActionBarActivity
 
     /** Send Drink Order to NFC */
     public void sendToNfc(View view) {
-
+        char drink = 'A';
         Intent intent = new Intent(this, BeamData.class);
-        String message = "Drink Order";
+        String message = "TrollTek";
+        for (int i = 0; i < this.order.length; i++)
+            message += " " + (drink+i) + this.order[i];
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
     }
 
     /** Respond to add to cart */
     public void addToCart(View view) {
-
         switch (view.getId()) {
             case R.id.drink1:
                 this.order[0]++;
-                Toast.makeText(this, this.order[0] + " Arnold Palmer in cart", Toast.LENGTH_SHORT).show();
+                updateQuantity(R.id.drink1_num, 0);
+                Toast.makeText(this, "Arnold Palmer added to cart", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.drink2:
                 this.order[1]++;
-                Toast.makeText(this, this.order[1] + " Whiskey in cart", Toast.LENGTH_SHORT).show();
+                updateQuantity(R.id.drink2_num, 1);
+                Toast.makeText(this, "Whiskey added to cart", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.drink3:
                 this.order[2]++;
-                Toast.makeText(this, this.order[2] + " Tequila in cart", Toast.LENGTH_SHORT).show();
+                updateQuantity(R.id.drink3_num, 2);
+                Toast.makeText(this, "Tequila added to cart", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.drink4:
                 this.order[3]++;
-                Toast.makeText(this, this.order[3] + " Rum added in cart", Toast.LENGTH_SHORT).show();
+                updateQuantity(R.id.drink4_num, 3);
+                Toast.makeText(this, "Rum added to cart", Toast.LENGTH_SHORT).show();
                 break;
             default:
-                Toast.makeText(this, "Undefined Drink", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Undefined Add", Toast.LENGTH_SHORT).show();
         }
     }
 
+    /** Respond to remove from cart */
+    public void removeFromCart(View view) {
+        switch (view.getId()) {
+            case R.id.drink1_rm:
+                if (this.order[0] != 0) {
+                    this.order[0]--;
+                    updateQuantity(R.id.drink1_num, 0);
+                    Toast.makeText(this, "Arnold Palmer removed from cart", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.drink2_rm:
+                if (this.order[1] != 0) {
+                    this.order[1]--;
+                    updateQuantity(R.id.drink2_num, 1);
+                    Toast.makeText(this, "Whiskey removed from cart", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.drink3_rm:
+                if (this.order[2] != 0) {
+                    this.order[2]--;
+                    updateQuantity(R.id.drink3_num, 2);
+                    Toast.makeText(this, "Tequila removed from cart", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.drink4_rm:
+                if (this.order[3] != 0) {
+                    this.order[3]--;
+                    updateQuantity(R.id.drink4_num, 3);
+                    Toast.makeText(this, "Rum removed from cart", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                Toast.makeText(this, "Undefined Removal", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void updateQuantity(int id, int drink) {
+        TextView textView = (TextView) findViewById(id);
+        textView.setText(Integer.toString(this.order[drink]));
+    }
     /** Set price, Hardcoded for now*/
     public void setPrice() {
         this.price[0] = 2.99;

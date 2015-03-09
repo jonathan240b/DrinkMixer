@@ -2,10 +2,12 @@
 <resources>
 
     <string name="app_name">Drink Mixer</string>
+    <string name="presents">Presents...</string>
     <string name="edit_message">Enter a message</string>
     <string name="button_send">Send</string>
     <string name="button_add_to_cart">Add to Cart</string>
-    <string name="title_section1">Test NFC</string>
+    <string name="button_remove_from_cart">Remove from Cart</string>
+    <string name="title_section1">Home</string>
     <string name="title_section2">Menu</string>
     <string name="title_section3">Cart</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>

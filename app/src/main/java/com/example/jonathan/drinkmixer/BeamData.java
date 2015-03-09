@@ -24,7 +24,8 @@ public class BeamData extends ActionBarActivity {
         NfcAdapter mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
         if (mNfcAdapter != null) {
-            mTextView.setText("Tap to beam to another NFC device");
+            mTextView.setText("Ready to Beam!\n\nPlace phone on designated NFC pad and tap to beam " +
+                    "order.");
         } else {
             mTextView.setText("This phone is not NFC enabled.");
             return;

@@ -9,16 +9,17 @@
     <TextView android:id="@+id/tv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.15"
+        android:layout_weight="0.25"
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#FFFFFF"/>
+        android:textColor="#FFFFFF"
+        android:minLines="4"/>
 
     <ImageView
         android:id="@+id/cart_banner"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="0.75"
         android:src="@drawable/nfc" />
 
 
